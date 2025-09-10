@@ -1,13 +1,13 @@
-package marketplace_saas.api.Marketplace;
+package com.market.saas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MarketplaceApplication {
+public class SaasApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MarketplaceApplication.class, args);
+		SpringApplication.run(SaasApplication.class, args);
 	}
 
 }

@@ -1,10 +1,10 @@
-package marketplace_saas.api.Marketplace;
+package com.market.saas;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MarketplaceApplicationTests {
+class SaasApplicationTests {
 
 	@Test
 	void contextLoads() {

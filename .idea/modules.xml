@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Marketplace.iml" filepath="$PROJECT_DIR$/.idea/Marketplace.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/marketplace-saas-api.iml" filepath="$PROJECT_DIR$/.idea/marketplace-saas-api.iml" />
     </modules>
   </component>
 </project>
