@@ -1,17 +1,16 @@
-package com.market.saas.Usuario;
+package com.market.saas.model;
 
 import javax.management.relation.Role;
 
 public class User {
-
     private Long id;
     private String nome;
     private String email;
     private String senha;
     private Role role;
 
-    public int getId() {
-        return Math.toIntExact(id);
+    public Long getId() {
+        return id;
     }
 
     public void setId(int id) {
