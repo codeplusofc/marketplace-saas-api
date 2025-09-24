@@ -1,8 +1,9 @@
 package com.market.saas.repository;
 
-import com.market.saas.model.User;
+import com.market.saas.model.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-//CONTRATO COM O BANCO DE DADOS!
-public interface UserRepository extends JpaRepository<User, Long> {
+@Repository
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 }

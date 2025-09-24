@@ -1,7 +1,6 @@
 package com.market.saas.model;
-//id, nome, preço, descrição, vendedorId
-public class Product {
 
+public class ProductEntity {
     private Long id;
     private String nome;
     private double preco;
