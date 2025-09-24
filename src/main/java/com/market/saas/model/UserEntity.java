@@ -1,20 +1,23 @@
 package com.market.saas.model;
 
-import javax.management.relation.Role;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-public class User {
+@Entity
+public class UserEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nome;
     private String email;
     private String senha;
-    private Role role;
+    private String role;
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = (long) id;
     }
 
     public String getSenha() {
@@ -25,11 +28,15 @@ public class User {
         this.senha = senha;
     }
 
-    public Role getRole() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
