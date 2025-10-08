@@ -1,4 +1,4 @@
-package service;
+package com.market.saas.service;
 
 import com.market.saas.model.ProductEntity;
 import com.market.saas.repository.ProductRepository;
