@@ -27,6 +27,13 @@ public class UserService {
     }
 
     public Optional<UserEntity> findUserById(Long id){
+
+        Optional<UserEntity> user = userRepository.findById(id);
+
+        if (user.isEmpty()){
+            throw new RuntimeException("Não foi encontrado nenhum usuario com esse id");
+        }
+
         return userRepository.findById(id);
     }
 }
