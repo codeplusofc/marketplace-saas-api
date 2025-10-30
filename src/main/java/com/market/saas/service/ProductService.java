@@ -22,6 +22,5 @@ public class ProductService {
     public List<ProductEntity> findAllProducts(){
         return productRepository.findAll();
     }
-
 }
 

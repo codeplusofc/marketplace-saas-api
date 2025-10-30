@@ -13,6 +13,19 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public UserEntity updateUsers(UserEntity userEntity, Long id) {
+        Optional<UserEntity> databaseUsers = userRepository.findById(id);
+
+        if (databaseUsers.isEmpty()) {
+            throw new RuntimeException("User not finded");
+        }
+
+        databaseUsers.get().setNome(userEntity.getNome());
+        databaseUsers.get().setCpf(userEntity.getCpf());
+        databaseUsers.get().setIdade(userEntity.getIdade());
+        return userRepository.save(databaseUsers.get());
+    }
+
     public Optional<UserEntity> findUserById(Long id){
         return userRepository.findById(id);
     }
