@@ -23,7 +23,7 @@ public class UserService {
         databaseUsers.get().setNome(userEntity.getNome());
         databaseUsers.get().setCpf(userEntity.getCpf());
         databaseUsers.get().setIdade(userEntity.getIdade());
-        return userRepository.save(databaseUsers.get())
+        return userRepository.save(databaseUsers.get());
     }
 
     public Optional<UserEntity> findUserById(Long id){
