@@ -25,6 +25,7 @@ public class OrderRequest {
         this.items = items;
     }
 
+    //TODO: REMOVER ESSA CLASSE ABAIXO E MIGRAR PARA UMA NOVA CLASSE
     public static class ItemRequest {
         private Long productId;
         private int quantity;

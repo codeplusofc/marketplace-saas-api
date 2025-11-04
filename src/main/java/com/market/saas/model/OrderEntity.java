@@ -14,6 +14,8 @@ public class OrderEntity {
     private LocalDateTime orderDate;
     private double totalValue;
 
+    //TODO:ADICIONAR CLASSE PRODUTO AQUI DENTRO
+
     public OrderEntity() {
         this.orderDate = LocalDateTime.now();
         this.status = "PENDING";

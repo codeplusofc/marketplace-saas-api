@@ -8,6 +8,7 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //TODO: EXCLUIR ESSA CLASSE E DEIXAR A CLASSE PRODUTO RESPONSÁVEL POR TRATAR AS COISAS RELACIONADAS AOS ITENS
     private Long orderId;
     private Long productId;
     private String productName;

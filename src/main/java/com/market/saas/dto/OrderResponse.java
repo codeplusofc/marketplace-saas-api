@@ -62,6 +62,7 @@ public class OrderResponse {
         this.items = items;
     }
 
+    //TODO: REMOVER ESSA CLASSE ABAIXO E MIGRAR PARA UMA NOVA CLASSE
     public static class ItemResponse {
         private Long productId;
         private String productName;

@@ -3,6 +3,7 @@ package com.market.saas.controller;
 import com.market.saas.dto.OrderRequest;
 import com.market.saas.dto.OrderResponse;
 import com.market.saas.service.OrderService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,15 +21,5 @@ public class OrderController {
     @PostMapping
     public OrderResponse createOrder(@RequestBody OrderRequest request) {
         return orderService.createOrder(request);
-    }
-
-    @GetMapping
-    public List<OrderResponse> findAllOrders() {
-        return orderService.findAllOrders();
-    }
-
-    @GetMapping("/{id}")
-    public OrderResponse findOrderById(@PathVariable Long id) {
-        return orderService.findOrderById(id);
     }
 }
