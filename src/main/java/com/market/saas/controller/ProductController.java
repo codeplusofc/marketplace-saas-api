@@ -22,7 +22,22 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductEntity> findAllProducts(){
+    public List<ProductEntity> findAllProducts() {
         return productService.findAllProducts();
+    }
+
+    @GetMapping("/{id}")
+    public ProductEntity findProductById(@PathVariable Long id) {
+        return productService.findProductById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ProductEntity updateProduct(@RequestBody ProductEntity productEntity, @PathVariable Long id) {
+        return productService.updateProduct(productEntity, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
     }
 }
