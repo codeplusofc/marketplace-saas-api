@@ -1,4 +1,8 @@
 package com.market.saas.model;
 
-public class OrderStatus {
+public enum OrderStatus {
+    PENDING,
+    PAID,
+    SHIPPED,
+    CANCELLED
 }
