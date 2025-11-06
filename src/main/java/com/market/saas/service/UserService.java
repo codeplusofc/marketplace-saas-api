@@ -2,60 +2,38 @@ package com.market.saas.service;
 
 import com.market.saas.model.UserEntity;
 import com.market.saas.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    public UserEntity updateUsers(UserEntity userEntity, Long id) {
+        Optional<UserEntity> databaseUsers = userRepository.findById(id);
 
-    public UserEntity createUser(UserEntity userEntity) {
-        return userRepository.save(userEntity);
-    }
-
-    public List<UserEntity> findAllUsers() {
-        return userRepository.findAll();
-    }
-
-    public UserEntity findUserById(Long id) {
-        Optional<UserEntity> userOpt = userRepository.findById(id);
-
-        if (userOpt.isEmpty()) {
-            throw new RuntimeException("Usuário não encontrado com ID: " + id);
+        if (databaseUsers.isEmpty()) {
+            throw new RuntimeException("User not finded");
         }
 
-        return userOpt.get();
+        databaseUsers.get().setNome(userEntity.getNome());
+        databaseUsers.get().setCpf(userEntity.getCpf());
+        databaseUsers.get().setIdade(userEntity.getIdade());
+        return userRepository.save(databaseUsers.get());
     }
 
-    public UserEntity updateUser(UserEntity userEntity, Long id) {
-        Optional<UserEntity> existingUser = userRepository.findById(id);
+    public Optional<UserEntity> findUserById(Long id){
 
-        if (existingUser.isEmpty()) {
-            throw new RuntimeException("Usuário não encontrado com ID: " + id);
+        Optional<UserEntity> user = userRepository.findById(id);
+
+        if (user.isEmpty()){
+            throw new RuntimeException("Não foi encontrado nenhum usuario com esse id");
         }
 
-        UserEntity userToUpdate = existingUser.get();
-        userToUpdate.setNome(userEntity.getNome());
-        userToUpdate.setCpf(userEntity.getCpf());
-        userToUpdate.setIdade(userEntity.getIdade());
-
-        return userRepository.save(userToUpdate);
-    }
-
-    public void deleteUser(Long id) {
-        Optional<UserEntity> userOpt = userRepository.findById(id);
-
-        if (userOpt.isEmpty()) {
-            throw new RuntimeException("Usuário não encontrado com ID: " + id);
-        }
-
-        userRepository.deleteById(id);
+        return userRepository.findById(id);
     }
 }
