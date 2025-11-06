@@ -1,12 +1,8 @@
 package com.market.saas.controller;
 
-import com.market.saas.dto.OrderRequest;
-import com.market.saas.dto.OrderResponse;
+import com.market.saas.model.OrderEntity;
 import com.market.saas.service.OrderService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
@@ -19,7 +15,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public OrderResponse createOrder(@RequestBody OrderRequest request) {
-        return orderService.createOrder(request);
+    public OrderEntity createOrder(@RequestBody OrderEntity orderEntity) {
+        return orderService.createOrder(orderEntity);
     }
 }

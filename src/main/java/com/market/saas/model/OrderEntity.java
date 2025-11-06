@@ -57,10 +57,6 @@ public class OrderEntity {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
     public LocalDateTime getOrderDate() {
         return orderDate;
     }
