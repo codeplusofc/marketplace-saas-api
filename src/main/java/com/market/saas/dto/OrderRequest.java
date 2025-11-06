@@ -25,28 +25,4 @@ public class OrderRequest {
         this.items = items;
     }
 
-    //TODO: REMOVER ESSA CLASSE ABAIXO E MIGRAR PARA UMA NOVA CLASSE
-    public static class ItemRequest {
-        private Long productId;
-        private int quantity;
-
-        public ItemRequest() {
-        }
-
-        public Long getProductId() {
-            return productId;
-        }
-
-        public void setProductId(Long productId) {
-            this.productId = productId;
-        }
-
-        public int getQuantity() {
-            return quantity;
-        }
-
-        public void setQuantity(int quantity) {
-            this.quantity = quantity;
-        }
-    }
 }

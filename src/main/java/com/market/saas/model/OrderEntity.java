@@ -1,6 +1,7 @@
 package com.market.saas.model;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,20 +13,28 @@ public class OrderEntity {
     private Long userId;
     private String status;
     private LocalDateTime orderDate;
+    private String nome;
+    private double preco;
+    private String descricao;
+    private Long vendedorId;
     private double totalValue;
-
-    //TODO:ADICIONAR CLASSE PRODUTO AQUI DENTRO
 
     public OrderEntity() {
         this.orderDate = LocalDateTime.now();
         this.status = "PENDING";
     }
 
-    public OrderEntity(Long userId, String status, double totalValue) {
+    public OrderEntity(Long id, Long userId, String status, LocalDateTime orderDate,
+                       String nome, double preco, String descricao, Long vendedorId, double totalValue) {
+        this.id = id;
         this.userId = userId;
         this.status = status;
+        this.orderDate = orderDate;
+        this.nome = nome;
+        this.preco = preco;
+        this.descricao = descricao;
+        this.vendedorId = vendedorId;
         this.totalValue = totalValue;
-        this.orderDate = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -48,7 +57,7 @@ public class OrderEntity {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
@@ -58,6 +67,38 @@ public class OrderEntity {
 
     public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Long getVendedorId() {
+        return vendedorId;
+    }
+
+    public void setVendedorId(Long vendedorId) {
+        this.vendedorId = vendedorId;
     }
 
     public double getTotalValue() {
