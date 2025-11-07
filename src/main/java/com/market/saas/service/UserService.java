@@ -8,12 +8,20 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService extends UserEntity {
 
     @Autowired
     private UserRepository userRepository;
 
     public Optional<UserEntity> findUserById(Long id){
+
         return userRepository.findById(id);
     }
+    public UserEntity save(UserEntity user){
+        return userRepository.save(user);
+    }
+    public void delete(Long id){
+        userRepository.deleteById(id);
+    }
+
 }

@@ -3,10 +3,7 @@ package com.market.saas.controller;
 import com.market.saas.model.UserEntity;
 import com.market.saas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -21,4 +18,15 @@ public class UserController {
     public Optional<UserEntity> buscarUsuarioPorId(@PathVariable Long id){
         return userService.findUserById(id);
     }
+
+    @PostMapping
+    public UserEntity criarUsuario (@RequestBody UserEntity user){
+        return userService.save(user);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletarUsuario(@PathVariable Long id) {
+        userService.delete(id);
+    }
 }
+
