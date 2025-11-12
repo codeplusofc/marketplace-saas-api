@@ -2,6 +2,7 @@ package com.market.saas.service;
 
 import com.market.saas.model.OrderEntity;
 import com.market.saas.repository.OrderRepository;
+import com.market.saas.validation.OrderValidation;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,9 @@ public class OrderService {
     }
 
     public OrderEntity createOrder(OrderEntity orderEntity) {
+        OrderValidation validator = new OrderValidation();
+        validator.validate(orderEntity);
+
         OrderEntity newOrder = new OrderEntity();
         newOrder.setUserId(orderEntity.getUserId());
         newOrder.setStatus("PENDING");
