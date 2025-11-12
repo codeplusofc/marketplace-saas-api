@@ -4,6 +4,9 @@ import com.market.saas.model.OrderEntity;
 import com.market.saas.service.OrderService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
@@ -17,5 +20,25 @@ public class OrderController {
     @PostMapping
     public OrderEntity createOrder(@RequestBody OrderEntity orderEntity) {
         return orderService.createOrder(orderEntity);
+    }
+
+    @GetMapping
+    public OrderEntity getAllOrders() {
+        return orderService.getAllOrders();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<OrderEntity> findOrderById(@PathVariable Long id) {
+        return orderService.findOrderById(id);
+    }
+
+    @PutMapping("/{id}")
+    public OrderEntity updateOrder(@PathVariable Long id, @RequestBody OrderEntity orderEntity) {
+        return orderService.updateOrder(orderEntity, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteOrderById(@PathVariable Long id) {
+        orderService.deleteOrderById(id);
     }
 }

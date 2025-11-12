@@ -12,29 +12,18 @@ public class OrderEntity {
 
     private Long userId;
     private String status;
-    private LocalDateTime orderDate;
-    private String nome;
-    private double preco;
-    private String descricao;
-    private Long vendedorId;
-    private double totalValue;
+    private LocalDateTime createdAt;
+    private String description;
 
     public OrderEntity() {
-        this.orderDate = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
         this.status = "PENDING";
     }
 
-    public OrderEntity(Long id, Long userId, String status, LocalDateTime orderDate,
-                       String nome, double preco, String descricao, Long vendedorId, double totalValue) {
+    public OrderEntity(Long id, Long userId, String description) {
         this.id = id;
         this.userId = userId;
-        this.status = status;
-        this.orderDate = orderDate;
-        this.nome = nome;
-        this.preco = preco;
-        this.descricao = descricao;
-        this.vendedorId = vendedorId;
-        this.totalValue = totalValue;
+        this.description = description;
     }
 
     public Long getId() {
@@ -57,51 +46,24 @@ public class OrderEntity {
         return status;
     }
 
-    public LocalDateTime getOrderDate() {
-        return orderDate;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public String getNome() {
-        return nome;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String getDescription() {
+        return description;
     }
 
-    public double getPreco() {
-        return preco;
+    public void setDescricao(String description) {
+        this.description = description;
     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Long getVendedorId() {
-        return vendedorId;
-    }
-
-    public void setVendedorId(Long vendedorId) {
-        this.vendedorId = vendedorId;
-    }
-
-    public double getTotalValue() {
-        return totalValue;
-    }
-
-    public void setTotalValue(double totalValue) {
-        this.totalValue = totalValue;
-    }
 }
