@@ -5,6 +5,7 @@ import com.market.saas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,14 +20,8 @@ public class UserController {
         return userService.findUserById(id);
     }
 
-    @PostMapping
-    public UserEntity criarUsuario (@RequestBody UserEntity user){
-        return userService.save(user);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deletarUsuario(@PathVariable Long id) {
-        userService.delete(id);
+    @PutMapping("/{id}")
+    public UserEntity updateUsers(@RequestBody UserEntity userEntity, @PathVariable Long id){
+        return userService.updateUsers(userEntity, id);
     }
 }
-

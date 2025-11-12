@@ -8,20 +8,32 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserService extends UserEntity {
+public class UserService {
 
     @Autowired
     private UserRepository userRepository;
 
+    public UserEntity updateUsers(UserEntity userEntity, Long id) {
+        Optional<UserEntity> databaseUsers = userRepository.findById(id);
+
+        if (databaseUsers.isEmpty()) {
+            throw new RuntimeException("User not finded");
+        }
+
+        databaseUsers.get().setNome(userEntity.getNome());
+        databaseUsers.get().setCpf(userEntity.getCpf());
+        databaseUsers.get().setIdade(userEntity.getIdade());
+        return userRepository.save(databaseUsers.get());
+    }
+
     public Optional<UserEntity> findUserById(Long id){
+
+        Optional<UserEntity> user = userRepository.findById(id);
+
+        if (user.isEmpty()){
+            throw new RuntimeException("Não foi encontrado nenhum usuario com esse id");
+        }
 
         return userRepository.findById(id);
     }
-    public UserEntity save(UserEntity user){
-        return userRepository.save(user);
-    }
-    public void delete(Long id){
-        userRepository.deleteById(id);
-    }
-
 }

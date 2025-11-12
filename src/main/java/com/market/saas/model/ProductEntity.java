@@ -1,30 +1,31 @@
 package com.market.saas.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class ProductEntity {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
-    private double preco;
-    private String descricao;
-    private Long vendedorId;
 
-    public ProductEntity(Long id, String nome, double preco, String descricao, Long vendedorId) {
-        this.id = id;
-        this.nome = nome;
-        this.preco = preco;
-        this.descricao = descricao;
-        this.vendedorId = vendedorId;
-    }
+    //TODO: EXCLUIR ESSA CLASSE E DEIXAR A CLASSE PRODUTO RESPONSÁVEL POR TRATAR AS COISAS RELACIONADAS AOS ITENS
+    private Long orderId;
+    private Long productId;
+    private String productName;
+    private double productPrice;
+    private int quantity;
+    private double subtotal;
 
     public ProductEntity() {
+    }
+
+    public ProductEntity(Long orderId, Long productId, String productName, double productPrice, int quantity) {
+        this.orderId = orderId;
+        this.productId = productId;
+        this.productName = productName;
+        this.productPrice = productPrice;
+        this.quantity = quantity;
+        this.subtotal = productPrice * quantity;
     }
 
     public Long getId() {
@@ -35,35 +36,52 @@ public class ProductEntity {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
-    public double getPreco() {
-        return preco;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
-    public Long getVendedorId() {
-        return vendedorId;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setVendedorId(Long vendedorId) {
-        this.vendedorId = vendedorId;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public double getProductPrice() {
+        return productPrice;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+        this.subtotal = this.productPrice * quantity;
+    }
+
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
     }
 }
