@@ -5,25 +5,37 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "orders")
 public class OrderEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long userId;
     private String status;
-    private LocalDateTime createdAt;
     private String description;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    public OrderEntity() {
-        this.createdAt = LocalDateTime.now();
-        this.status = "PENDING";
-    }
-
-    public OrderEntity(Long id, Long userId, String description) {
-        this.id = id;
+    public OrderEntity(Long userId, String description) {
         this.userId = userId;
         this.description = description;
+        this.status = "PENDING";
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public OrderEntity() {
+    }
+
+    public void updateFrom(OrderEntity updates) {
+        if (updates.getStatus() != null) {
+            this.status = updates.getStatus();
+        }
+        if (updates.getDescription() != null) {
+            this.description = updates.getDescription();
+        }
+        this.updatedAt = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -50,14 +62,6 @@ public class OrderEntity {
         this.status = status;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -66,4 +70,19 @@ public class OrderEntity {
         this.description = description;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
