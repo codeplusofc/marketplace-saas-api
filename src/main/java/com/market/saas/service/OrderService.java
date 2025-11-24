@@ -35,7 +35,11 @@ public class OrderService {
     }
 
     public List<OrderEntity> getAllOrders() {
-        return orderRepository.findAll();
+        List<OrderEntity> orders = orderRepository.findAll();
+        if (orders.isEmpty()) {
+            throw new OrderNotFoundException("Nenhum pedido foi encontrado no banco de dados.");
+        }
+        return orders;
     }
 
     @Transactional
@@ -53,11 +57,7 @@ public class OrderService {
         return orderRepository.save(existingOrder);
     }
 
-    public OrderEntity findOrderById(Long id) {
-        return findOrderByIdOrThrow(id);
-    }
-
-    private OrderEntity findOrderByIdOrThrow(Long id) {
+    public OrderEntity findOrderByIdOrThrow(Long id) {
         return orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException(
                         "Pedido com ID " + id + " não encontrado"
