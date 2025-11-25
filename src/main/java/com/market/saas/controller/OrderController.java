@@ -2,6 +2,7 @@ package com.market.saas.controller;
 
 import com.market.saas.model.OrderEntity;
 import com.market.saas.service.OrderService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,27 +19,28 @@ public class OrderController {
     }
 
     @PostMapping
-    public OrderEntity createOrder(@RequestBody OrderEntity orderEntity) {
-        return orderService.createOrder(orderEntity);
+    public ResponseEntity<OrderEntity> createOrder(@RequestBody OrderEntity orderEntity) {
+        return ResponseEntity.status(201).body(orderService.createOrder(orderEntity));
     }
 
     @GetMapping
-    public OrderEntity getAllOrders() {
+    public List<OrderEntity> getAllOrders() {
         return orderService.getAllOrders();
     }
 
     @GetMapping("/{id}")
-    public Optional<OrderEntity> findOrderById(@PathVariable Long id) {
-        return orderService.findOrderById(id);
+    public OrderEntity findOrderById(@PathVariable Long id) {
+        return orderService.findOrderByIdOrThrow(id);
     }
 
     @PutMapping("/{id}")
-    public OrderEntity updateOrder(@PathVariable Long id, @RequestBody OrderEntity orderEntity) {
-        return orderService.updateOrder(orderEntity, id);
+    public ResponseEntity<OrderEntity> updateOrder(@PathVariable Long id, @RequestBody OrderEntity orderEntity) {
+        return ResponseEntity.status(204).body(orderService.updateOrder(orderEntity, id));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteOrderById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteOrderById(@PathVariable Long id) {
         orderService.deleteOrderById(id);
+        return ResponseEntity.noContent().build();
     }
 }
