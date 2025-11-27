@@ -5,7 +5,6 @@ import com.market.saas.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -16,7 +15,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{id}")
-    public Optional<UserEntity> buscarUsuarioPorId(@PathVariable Long id){
+    public Optional<UserEntity> getUserById(@PathVariable Long id){
         return userService.findUserById(id);
     }
 
