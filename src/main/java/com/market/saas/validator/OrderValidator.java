@@ -5,7 +5,7 @@ import com.market.saas.model.OrderEntity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderBusinessValidator {
+public class OrderValidator {
 
     public void validateCanDelete(OrderEntity order) {
         if (!"PENDING".equals(order.getStatus())) {
@@ -18,6 +18,19 @@ public class OrderBusinessValidator {
     public void validateStatusTransition(String currentStatus, String newStatus) {
         if ("COMPLETED".equals(currentStatus)) {
             throw new OrderStatusException("Pedido concluído não pode ser alterado");
+        }
+    }
+    public static void validate(OrderEntity order) {
+        if (order == null) {
+            throw new IllegalArgumentException("Order não pode ser nulo");
+        }
+
+        if (order.getUserId() == null) {
+            throw new IllegalArgumentException("O ID do usuário é obrigatório");
+        }
+
+        if (order.getDescription() != null && order.getDescription().length() > 200) {
+            throw new IllegalArgumentException("A descrição não pode ter mais do que 200 caracteres!");
         }
     }
 }

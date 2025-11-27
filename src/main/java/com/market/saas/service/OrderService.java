@@ -3,57 +3,55 @@ package com.market.saas.service;
 import com.market.saas.exception.OrderNotFoundException;
 import com.market.saas.model.OrderEntity;
 import com.market.saas.repository.OrderRepository;
-import com.market.saas.validator.OrderBusinessValidator;
+import com.market.saas.validator.OrderValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.market.saas.validation.OrderValidation.validate;
+import static com.market.saas.validator.OrderValidator.validate;
 
 @Service
 public class OrderService {
 
-    private final OrderRepository orderRepository;
-    private final OrderBusinessValidator businessValidator;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private OrderValidator businessValidator;
 
-    public OrderService(OrderRepository orderRepository, OrderBusinessValidator businessValidator) {
-        this.orderRepository = orderRepository;
-        this.businessValidator = businessValidator;
-    }
+    public OrderEntity createOrder(OrderEntity order) {
+        validate(order);
 
-    @Transactional
-    public OrderEntity createOrder(OrderEntity orderEntity) {
-        validate(orderEntity);
-
-        OrderEntity newOrder = new OrderEntity(
-                orderEntity.getUserId(),
-                orderEntity.getDescription()
+        var newOrder = new OrderEntity(
+                order.getUserId(),
+                order.getDescription()
         );
-
         return orderRepository.save(newOrder);
     }
 
     public List<OrderEntity> getAllOrders() {
-        List<OrderEntity> orders = orderRepository.findAll();
+        var orders = orderRepository.findAll();
+
         if (orders.isEmpty()) {
             throw new OrderNotFoundException("Nenhum pedido foi encontrado no banco de dados.");
         }
         return orders;
     }
 
-    @Transactional
     public void deleteOrderById(Long id) {
-        OrderEntity order = findOrderByIdOrThrow(id);
+        var order = findOrderByIdOrThrow(id);
         businessValidator.validateCanDelete(order);
         orderRepository.deleteById(id);
     }
 
-    @Transactional
-    public OrderEntity updateOrder(OrderEntity updates, Long id) {
-        validate(updates);
-        OrderEntity existingOrder = findOrderByIdOrThrow(id);
-        existingOrder.updateFrom(updates);
+    public OrderEntity updateOrder(OrderEntity order, Long id) {
+        validate(order);
+        var existingOrder = findOrderByIdOrThrow(id);
+        existingOrder.setStatus(order.getStatus());
+        existingOrder.setDescription(order.getDescription());
+        existingOrder.setUpdatedAt(LocalDateTime.now());
+
         return orderRepository.save(existingOrder);
     }
 
