@@ -23,4 +23,8 @@ public class UserController {
     public UserEntity updateUsers(@RequestBody UserEntity userEntity, @PathVariable Long id){
         return userService.updateUsers(userEntity, id);
     }
+    @GetMapping
+    public java.util.List<UserEntity> getAllUsers() {
+        return userService.getAllUsers();
+    }
 }
