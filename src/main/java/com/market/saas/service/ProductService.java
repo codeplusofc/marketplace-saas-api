@@ -35,4 +35,7 @@ public class ProductService {
 
         return productRepository.save(existingProduct);
     }
+    public java.util.List<com.market.saas.model.ProductEntity> getAllProducts() {
+        return productRepository.findAll();
+    }
 }

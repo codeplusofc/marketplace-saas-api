@@ -25,4 +25,8 @@ public class ProductController {
     public ResponseEntity<com.market.saas.model.ProductEntity> createProduct(@RequestBody com.market.saas.model.ProductEntity product) {
         return ResponseEntity.status(201).body(productService.createProduct(product));
     }
+    @GetMapping
+    public java.util.List<com.market.saas.model.ProductEntity> getAllProducts() {
+        return productService.getAllProducts();
+    }
 }
