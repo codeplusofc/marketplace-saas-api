@@ -17,4 +17,12 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<com.market.saas.model.ProductEntity> updateProduct(@PathVariable Long id, @RequestBody com.market.saas.model.ProductEntity product) {
+        return ResponseEntity.ok(productService.updateProduct(id, product));
+    }
+    @PostMapping
+    public ResponseEntity<com.market.saas.model.ProductEntity> createProduct(@RequestBody com.market.saas.model.ProductEntity product) {
+        return ResponseEntity.status(201).body(productService.createProduct(product));
+    }
 }
