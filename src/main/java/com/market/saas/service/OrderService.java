@@ -1,6 +1,6 @@
 package com.market.saas.service;
 
-import com.market.saas.exception.OrderNotFoundException;
+import com.market.saas.exception.NotFoundException;
 import com.market.saas.model.OrderEntity;
 import com.market.saas.repository.OrderRepository;
 import com.market.saas.validator.OrderValidator;
@@ -34,7 +34,7 @@ public class OrderService {
         var orders = orderRepository.findAll();
 
         if (orders.isEmpty()) {
-            throw new OrderNotFoundException("Nenhum pedido foi encontrado no banco de dados.");
+            throw new NotFoundException("Nenhum pedido foi encontrado no banco de dados.");
         }
         return orders;
     }
@@ -57,7 +57,7 @@ public class OrderService {
 
     public OrderEntity findOrderByIdOrThrow(Long id) {
         return orderRepository.findById(id)
-                .orElseThrow(() -> new OrderNotFoundException(
+                .orElseThrow(() -> new NotFoundException(
                         "Pedido com ID " + id + " não encontrado"
                 ));
     }

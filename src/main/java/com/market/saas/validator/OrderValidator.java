@@ -1,6 +1,6 @@
 package com.market.saas.validator;
 
-import com.market.saas.exception.OrderStatusException;
+import com.market.saas.exception.StatusException;
 import com.market.saas.model.OrderEntity;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +9,7 @@ public class OrderValidator {
 
     public void validateCanDelete(OrderEntity order) {
         if (!"PENDING".equals(order.getStatus())) {
-            throw new OrderStatusException(
+            throw new StatusException(
                     "Pedido não pode ser deletado - status: " + order.getStatus()
             );
         }
@@ -17,7 +17,7 @@ public class OrderValidator {
 
     public void validateStatusTransition(String currentStatus, String newStatus) {
         if ("COMPLETED".equals(currentStatus)) {
-            throw new OrderStatusException("Pedido concluído não pode ser alterado");
+            throw new StatusException("Pedido concluído não pode ser alterado");
         }
     }
     public static void validate(OrderEntity order) {

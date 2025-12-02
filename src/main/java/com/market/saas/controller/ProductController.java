@@ -1,5 +1,6 @@
 package com.market.saas.controller;
 
+import com.market.saas.model.ProductEntity;
 import com.market.saas.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +18,19 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
+
     @PutMapping("/{id}")
-    public ResponseEntity<com.market.saas.model.ProductEntity> updateProduct(@PathVariable Long id, @RequestBody com.market.saas.model.ProductEntity product) {
+    public ResponseEntity<ProductEntity> updateProduct(@PathVariable Long id, @RequestBody ProductEntity product) {
         return ResponseEntity.ok(productService.updateProduct(id, product));
     }
+
     @PostMapping
-    public ResponseEntity<com.market.saas.model.ProductEntity> createProduct(@RequestBody com.market.saas.model.ProductEntity product) {
+    public ResponseEntity<ProductEntity> createProduct(@RequestBody ProductEntity product) {
         return ResponseEntity.status(201).body(productService.createProduct(product));
     }
+
     @GetMapping
-    public java.util.List<com.market.saas.model.ProductEntity> getAllProducts() {
+    public java.util.List<ProductEntity> getAllProducts() {
         return productService.getAllProducts();
     }
 }
