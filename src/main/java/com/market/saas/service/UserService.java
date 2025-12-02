@@ -5,6 +5,7 @@ import com.market.saas.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,4 +37,14 @@ public class UserService {
 
         return userRepository.findById(id);
     }
+
+    public UserEntity createUser(UserEntity userEntity){
+        return userRepository.save(userEntity);
+    }
+
+    //chama todos os users //findALLUser metodo de acesso a dados do repository
+    public List<UserEntity> findALLUser(){
+        return userRepository.findAll();
+    }
 }
+
