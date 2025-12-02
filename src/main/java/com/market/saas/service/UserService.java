@@ -35,4 +35,7 @@ public class UserService {
         }
         return userRepository.findById(id);
     }
+    public java.util.List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
+    }
 }
