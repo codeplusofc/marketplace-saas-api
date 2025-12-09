@@ -42,8 +42,7 @@ public class UserService {
         return userRepository.save(userEntity);
     }
 
-    //chama todos os users //findALLUser metodo de acesso a dados do repository
-    public List<UserEntity> findALLUser(){
+    public List<UserEntity> findAllUser(){
         return userRepository.findAll();
     }
 }
