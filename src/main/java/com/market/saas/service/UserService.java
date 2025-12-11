@@ -15,7 +15,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public UserEntity updateUsers(UserEntity userEntity, Long id) {
-        Optional<UserEntity> databaseUsers = userRepository.findById(id);
+        var databaseUsers = userRepository.findById(id);
 
         if (databaseUsers.isEmpty()) {
             throw new RuntimeException("User not finded");
@@ -24,20 +24,20 @@ public class UserService {
         databaseUsers.get().setNome(userEntity.getNome());
         databaseUsers.get().setCpf(userEntity.getCpf());
         databaseUsers.get().setIdade(userEntity.getIdade());
+
         return userRepository.save(databaseUsers.get());
     }
 
-    public Optional<UserEntity> findUserById(Long id){
+    public Optional<UserEntity> findUserById(Long id) {
+        var user = userRepository.findById(id);
 
-        Optional<UserEntity> user = userRepository.findById(id);
-
-        if (user.isEmpty()){
+        if (user.isEmpty()) {
             throw new RuntimeException("Não foi encontrado nenhum usuario com esse id");
         }
-
         return userRepository.findById(id);
     }
-    public java.util.List<UserEntity> getAllUsers() {
+
+    public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
     }
 

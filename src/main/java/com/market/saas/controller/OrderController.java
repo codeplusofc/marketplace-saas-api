@@ -2,21 +2,18 @@ package com.market.saas.controller;
 
 import com.market.saas.model.OrderEntity;
 import com.market.saas.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
 
-    private final OrderService orderService;
-
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
+    @Autowired
+    private OrderService orderService;
 
     @PostMapping
     public ResponseEntity<OrderEntity> createOrder(@RequestBody OrderEntity orderEntity) {

@@ -28,16 +28,6 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
-    public void updateFrom(OrderEntity updates) {
-        if (updates.getStatus() != null) {
-            this.status = updates.getStatus();
-        }
-        if (updates.getDescription() != null) {
-            this.description = updates.getDescription();
-        }
-        this.updatedAt = LocalDateTime.now();
-    }
-
     public Long getId() {
         return id;
     }
