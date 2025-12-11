@@ -5,36 +5,27 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "orders")
 public class OrderEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long userId;
     private String status;
-    private LocalDateTime orderDate;
-    private String nome;
-    private double preco;
-    private String descricao;
-    private Long vendedorId;
-    private double totalValue;
+    private String description;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    public OrderEntity() {
-        this.orderDate = LocalDateTime.now();
+    public OrderEntity(Long userId, String description) {
+        this.userId = userId;
+        this.description = description;
         this.status = "PENDING";
+        this.createdAt = LocalDateTime.now();
     }
 
-    public OrderEntity(Long id, Long userId, String status, LocalDateTime orderDate,
-                       String nome, double preco, String descricao, Long vendedorId, double totalValue) {
-        this.id = id;
-        this.userId = userId;
-        this.status = status;
-        this.orderDate = orderDate;
-        this.nome = nome;
-        this.preco = preco;
-        this.descricao = descricao;
-        this.vendedorId = vendedorId;
-        this.totalValue = totalValue;
+    public OrderEntity() {
     }
 
     public Long getId() {
@@ -57,51 +48,32 @@ public class OrderEntity {
         return status;
     }
 
-    public LocalDateTime getOrderDate() {
-        return orderDate;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setOrderDate(LocalDateTime orderDate) {
-        this.orderDate = orderDate;
+    public String getDescription() {
+        return description;
     }
 
-    public String getNome() {
-        return nome;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public double getPreco() {
-        return preco;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Long getVendedorId() {
-        return vendedorId;
-    }
-
-    public void setVendedorId(Long vendedorId) {
-        this.vendedorId = vendedorId;
-    }
-
-    public double getTotalValue() {
-        return totalValue;
-    }
-
-    public void setTotalValue(double totalValue) {
-        this.totalValue = totalValue;
-    }
 }

@@ -1,53 +1,64 @@
 package com.market.saas.service;
 
+import com.market.saas.exception.NotFoundException;
 import com.market.saas.model.OrderEntity;
 import com.market.saas.repository.OrderRepository;
+import com.market.saas.validator.OrderValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import static com.market.saas.validator.OrderValidator.validate;
 
 @Service
 public class OrderService {
 
-    private final OrderRepository orderRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+    @Autowired
+    private OrderValidator businessValidator;
 
-    public OrderService(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
+    public OrderEntity createOrder(OrderEntity order) {
+        validate(order);
+
+        var newOrder = new OrderEntity(
+                order.getUserId(),
+                order.getDescription()
+        );
+        return orderRepository.save(newOrder);
     }
 
-    public OrderEntity createOrder(OrderEntity orderEntity) {
-        return orderRepository.save(orderEntity);
-    }
+    public List<OrderEntity> getAllOrders() {
+        var orders = orderRepository.findAll();
 
-    public OrderEntity getAllOrders() {
-        return (OrderEntity) orderRepository.findAll();
+        if (orders.isEmpty()) {
+            throw new NotFoundException("Nenhum pedido foi encontrado no banco de dados.");
+        }
+        return orders;
     }
 
     public void deleteOrderById(Long id) {
-        if (orderRepository.existsById(id)) {
-            throw new RuntimeException("Pedido com ID " + id + " não encontrado!");
-        }
+        var order = findOrderByIdOrThrow(id);
+        businessValidator.validateCanDelete(order);
         orderRepository.deleteById(id);
     }
 
-    public OrderEntity updateOrder(OrderEntity orderEntity, Long id) {
-        Optional<OrderEntity> pedidoDoBanco = orderRepository.findById(id);
+    public OrderEntity updateOrder(OrderEntity order, Long id) {
+        validate(order);
+        var existingOrder = findOrderByIdOrThrow(id);
+        existingOrder.setStatus(order.getStatus());
+        existingOrder.setDescription(order.getDescription());
+        existingOrder.setUpdatedAt(LocalDateTime.now());
 
-        if (pedidoDoBanco.isEmpty()) {
-            throw new RuntimeException("Pedido não encontrado!");
-        }
-
-        pedidoDoBanco.get().setUserId(orderEntity.getUserId());
-        pedidoDoBanco.get().setStatus(orderEntity.getStatus());
-        pedidoDoBanco.get().setCreatedAt(orderEntity.getCreatedAt());
-        pedidoDoBanco.get().setDescricao(orderEntity.getDescription());
-
-        return orderRepository.save(pedidoDoBanco.get());
+        return orderRepository.save(existingOrder);
     }
 
-    public Optional<OrderEntity> findOrderById(Long id) {
-        return orderRepository.findById(id);
+    public OrderEntity findOrderByIdOrThrow(Long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(
+                        "Pedido com ID " + id + " não encontrado"
+                ));
     }
-
-
 }

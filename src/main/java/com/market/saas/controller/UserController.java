@@ -1,4 +1,5 @@
 package com.market.saas.controller;
+
 import com.market.saas.model.UserEntity;
 import com.market.saas.repository.UserRepository;
 import com.market.saas.service.UserService;
@@ -10,18 +11,15 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
 
-    @Autowired
-    private UserRepository userRepository;
-
     @GetMapping("/{id}")
-    public Optional<UserEntity> buscarUsuarioPorId(@PathVariable Long id){
+    public Optional<UserEntity> getUserById(@PathVariable Long id){
         return userService.findUserById(id);
     }
 
@@ -37,13 +35,12 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserEntity>>getAllUsers() {
-        return ResponseEntity.status(200).body(userService.findAllUser());
+        return ResponseEntity.status(200).body(userService.getAllUsers());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<UserEntity>delete(@PathVariable Long id){
-        if (!userRepository.existsById(id)) return ResponseEntity.noContent().build();
-        userRepository.deleteById(id);
+    public ResponseEntity<UserEntity>deleteUserById(@PathVariable Long id){
+        userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
 
 
