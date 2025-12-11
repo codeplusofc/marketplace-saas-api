@@ -41,7 +41,18 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public UserEntity createUser(UserEntity userEntity){
+        return userRepository.save(userEntity);
+    }
+
+
+    public void deleteUserById(Long id){
+      userRepository.deleteById(id);
+    }
 }
+
+
+
 
 
 
