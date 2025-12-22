@@ -1,23 +1,31 @@
 package com.market.saas.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 public class ProductEntity {
+    private Number productId;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long orderId;
-    private Long productId;
+
+    @NotBlank(message = "O nome do produto é obrigatório")
     private String productName;
+
+    @NotNull(message = "O preço do produto é obrigatório")
+    @Positive(message = "O preço deve ser maior que zero")
     private double productPrice;
+
+    @Min(value = 1, message = "A quantidade mínima deve ser 1")
     private int quantity;
+
     private double subtotal;
-
-    public ProductEntity() {
-    }
-
     public ProductEntity(Long orderId, Long productId, String productName, double productPrice, int quantity) {
         this.orderId = orderId;
         this.productId = productId;
@@ -44,7 +52,7 @@ public class ProductEntity {
     }
 
     public Long getProductId() {
-        return productId;
+        return productId.longValue();
     }
 
     public void setProductId(Long productId) {
