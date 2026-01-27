@@ -1,8 +1,8 @@
 package com.market.saas.controller;
 
 
-import com.market.saas.model.PedidoEntity;
-import com.market.saas.service.PedidoService;
+import com.market.saas.model.OrderEntity;
+import com.market.saas.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/pedidos")
-public class PedidoController {
+public class OrderController {
 
     @Autowired
-    private PedidoService pedidoservice;
+    private OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<PedidoEntity> criar(@RequestBody PedidoEntity dto) {
-       PedidoEntity novoPedido = pedidoservice.criarPredido(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoPedido);
+    public ResponseEntity<OrderEntity> criar(@RequestBody OrderEntity orderEntity) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.createOrder(orderEntity));
     }
 }
