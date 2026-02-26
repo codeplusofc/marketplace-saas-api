@@ -1,9 +1,6 @@
 package com.market.saas.model;
 import  com.market.saas.validator.UserValidator;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 @Getter
@@ -17,6 +14,6 @@ public class UserEntity {
     private String nome;
     private String cpf;
     private int idade;
-
+@Transient
     public UserValidator userValidator = new UserValidator();
 }

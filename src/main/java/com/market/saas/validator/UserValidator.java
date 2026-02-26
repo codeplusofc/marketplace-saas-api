@@ -4,6 +4,7 @@ import com.market.saas.exception.StatusException;
 import com.market.saas.model.UserEntity;
 import jakarta.validation.constraints.Email;
 
+import java.beans.Transient;
 import java.util.regex.Pattern;
 
 
