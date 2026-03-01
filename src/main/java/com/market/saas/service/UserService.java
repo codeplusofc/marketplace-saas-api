@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
-import com.market.saas.validator.UserValidator;
+
+import static com.market.saas.validator.UserValidator.validateUserFields;
+
 @Service
 public class UserService {
 
@@ -13,7 +15,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public UserEntity updateUsers(UserEntity userEntity, Long id) {
-        UserValidator.validate(userEntity);
+        validateUserFields(userEntity);
         var databaseUsers = userRepository.findById(id);
 
         if (databaseUsers.isEmpty()) {
@@ -41,7 +43,7 @@ public class UserService {
     }
 
     public UserEntity createUser(UserEntity userEntity){
-        UserValidator.validate(userEntity);
+        validateUserFields(userEntity);
         return userRepository.save(userEntity);
     }
 
