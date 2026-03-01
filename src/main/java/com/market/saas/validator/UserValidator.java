@@ -17,7 +17,7 @@ public class UserValidator {
         }
         if (username.matches(".*\\d.*")) {
             throw new BadRequestException("Nome inválido! Caracteres especiais não são permitidos.");
-        } else {
+        } if (username.isEmpty()){
             throw new BadRequestException("O campo nome não pode estar vazio!");
         }
     }
