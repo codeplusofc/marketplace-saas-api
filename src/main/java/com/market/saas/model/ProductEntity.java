@@ -1,30 +1,43 @@
 package com.market.saas.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
-    private Long orderId;
-    private String productName;
-    private double productPrice;
-    private int quantity;
-    private double subtotal;
+    @Column(nullable = false)
+    private UUID commerceId;
 
-    public ProductEntity(Long id, Long orderId, String productName, double productPrice, int quantity, double subtotal) {
-        this.id = id;
-        this.orderId = orderId;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.quantity = quantity;
-        this.subtotal = subtotal;
+    @Column(nullable = false)
+    private String name;
+
+    private String description;
+
+    private Double price;
+
+    private Integer stock;
+
+    @ElementCollection
+    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "image_url")
+    private List<String> images;
+
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
     }
 }

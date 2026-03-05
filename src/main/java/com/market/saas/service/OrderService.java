@@ -7,8 +7,8 @@ import com.market.saas.validator.OrderValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID; // Importante: usamos UUID agora
 
 import static com.market.saas.validator.OrderValidator.validate;
 
@@ -17,17 +17,14 @@ public class OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
     @Autowired
     private OrderValidator businessValidator;
 
     public OrderEntity createOrder(OrderEntity order) {
         validate(order);
 
-        var newOrder = new OrderEntity(
-                order.getUserId(),
-                order.getDescription()
-        );
-        return orderRepository.save(newOrder);
+        return orderRepository.save(order);
     }
 
     public List<OrderEntity> getAllOrders() {
@@ -39,23 +36,25 @@ public class OrderService {
         return orders;
     }
 
-    public void deleteOrderById(Long id) {
+    public void deleteOrderById(UUID id) {
         var order = findOrderByIdOrThrow(id);
         businessValidator.validateCanDelete(order);
         orderRepository.deleteById(id);
     }
 
-    public OrderEntity updateOrder(OrderEntity order, Long id) {
+    public OrderEntity updateOrder(OrderEntity order, UUID id) {
         validate(order);
         var existingOrder = findOrderByIdOrThrow(id);
-        existingOrder.setStatus(order.getStatus());
-        existingOrder.setDescription(order.getDescription());
-        existingOrder.setUpdatedAt(LocalDateTime.now());
+
+
+        existingOrder.setPaymentStatus(order.getPaymentStatus());
+        existingOrder.setDeliveryStatus(order.getDeliveryStatus());
+
 
         return orderRepository.save(existingOrder);
     }
 
-    public OrderEntity findOrderByIdOrThrow(Long id) {
+    public OrderEntity findOrderByIdOrThrow(UUID id) {
         return orderRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(
                         "Pedido com ID " + id + " não encontrado"
