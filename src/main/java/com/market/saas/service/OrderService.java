@@ -48,7 +48,7 @@ public class OrderService {
         var existingOrder = findOrderByIdOrThrow(id);
 
 
-        existingOrder.setPaymentStatus(order.getPaymentStatus());
+        existingOrder.setStatus(order.getStatus());
         existingOrder.setDeliveryStatus(order.getDeliveryStatus());
 
         return orderRepository.save(existingOrder);

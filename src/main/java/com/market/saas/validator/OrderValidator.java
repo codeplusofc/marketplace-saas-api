@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 public class OrderValidator {
 
     public void validateCanDelete(OrderEntity order) {
-        if (!"PENDING".equals(order.getStatus())) {
+
+        if (!"PENDING".equals(order.PaymentStatus())) {
             throw new StatusException(
-                    "Pedido não pode ser deletado - status: " + order.getStatus()
+                    "Pedido não pode ser deletado - status: " + order.getPaymentStatus()
             );
         }
     }
@@ -20,6 +21,7 @@ public class OrderValidator {
             throw new StatusException("Pedido concluído não pode ser alterado");
         }
     }
+
     public static void validate(OrderEntity order) {
         if (order == null) {
             throw new IllegalArgumentException("Order não pode ser nulo");

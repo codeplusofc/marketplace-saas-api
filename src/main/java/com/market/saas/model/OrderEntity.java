@@ -17,6 +17,7 @@ public class OrderEntity {
     private Long commerceId;
     private Double totalPrice;
 
+
     private String paymentStatus;
     private String deliveryStatus;
 
@@ -40,4 +41,5 @@ public class OrderEntity {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
 }
