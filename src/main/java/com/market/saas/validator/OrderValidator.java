@@ -9,7 +9,7 @@ public class OrderValidator {
 
     public void validateCanDelete(OrderEntity order) {
 
-        if (!"PENDING".equals(order.PaymentStatus())) {
+        if (!"PENDING".equals(order.getPaymentStatus())) {
             throw new StatusException(
                     "Pedido não pode ser deletado - status: " + order.getPaymentStatus()
             );
