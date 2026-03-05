@@ -2,27 +2,20 @@ package com.market.saas.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.UUID;
 
 @Entity
 @Table(name = "order_items")
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class OrderItemEntity {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "order_id")
     private OrderEntity order;
 
-    @Column(nullable = false)
-    private UUID productId;
-
-    @Column(nullable = false)
+    private Long productId;
     private Integer quantity;
-
-    @Column(nullable = false)
-    private Double unitPrice; // Preço do produto no momento da compra
+    private Double unitPrice;
 }

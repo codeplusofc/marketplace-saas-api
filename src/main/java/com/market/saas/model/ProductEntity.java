@@ -2,36 +2,27 @@ package com.market.saas.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
+@Table(name = "products")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class ProductEntity {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(nullable = false)
-    private UUID commerceId;
+    private Long commerceId;
 
-    @Column(nullable = false)
-    private String name;
+
+    private String productName;
+    private Double productPrice;
+    private Integer quantity; // ou stock, se preferir mudar no validator depois
 
     private String description;
 
-    private Double price;
-
-    private Integer stock;
-
     @ElementCollection
-    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = "image_url")
     private List<String> images;
 
     private LocalDateTime createdAt;

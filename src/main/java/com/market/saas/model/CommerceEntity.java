@@ -1,42 +1,39 @@
 package com.market.saas.model;
+
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-import java.util.UUID;
 import lombok.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "commerces")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommerceEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(nullable = false)
-    private UUID ownerId;
-
-    @Column(nullable = false)
+    private Long ownerId;
     private String name;
-
     private String description;
     private String category;
     private String address;
-
-    @Enumerated(EnumType.STRING)
-    private CommerceStatus status;
+    private String status; // ATIVO, SUSPENSO
 
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt; // Adicionado para suportar o @PreUpdate
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        status = CommerceStatus.ATIVO;
+        this.createdAt = LocalDateTime.now();
+        this.status = "ATIVO"; // Define status padrão ao criar
     }
 
     @PreUpdate
     protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 }
-

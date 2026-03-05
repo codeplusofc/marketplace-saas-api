@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID; // Importante: usamos UUID agora
+// Removido o import do UUID para usar Long
 
 import static com.market.saas.validator.OrderValidator.validate;
 
@@ -23,7 +23,6 @@ public class OrderService {
 
     public OrderEntity createOrder(OrderEntity order) {
         validate(order);
-
         return orderRepository.save(order);
     }
 
@@ -36,13 +35,15 @@ public class OrderService {
         return orders;
     }
 
-    public void deleteOrderById(UUID id) {
+
+    public void deleteOrderById(Long id) {
         var order = findOrderByIdOrThrow(id);
         businessValidator.validateCanDelete(order);
         orderRepository.deleteById(id);
     }
 
-    public OrderEntity updateOrder(OrderEntity order, UUID id) {
+
+    public OrderEntity updateOrder(OrderEntity order, Long id) {
         validate(order);
         var existingOrder = findOrderByIdOrThrow(id);
 
@@ -50,11 +51,11 @@ public class OrderService {
         existingOrder.setPaymentStatus(order.getPaymentStatus());
         existingOrder.setDeliveryStatus(order.getDeliveryStatus());
 
-
         return orderRepository.save(existingOrder);
     }
 
-    public OrderEntity findOrderByIdOrThrow(UUID id) {
+
+    public OrderEntity findOrderByIdOrThrow(Long id) {
         return orderRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(
                         "Pedido com ID " + id + " não encontrado"
