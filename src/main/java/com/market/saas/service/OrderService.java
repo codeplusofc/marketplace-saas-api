@@ -7,8 +7,8 @@ import com.market.saas.validator.OrderValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
+// Removido o import do UUID para usar Long
 
 import static com.market.saas.validator.OrderValidator.validate;
 
@@ -17,17 +17,13 @@ public class OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
     @Autowired
     private OrderValidator businessValidator;
 
     public OrderEntity createOrder(OrderEntity order) {
         validate(order);
-
-        var newOrder = new OrderEntity(
-                order.getUserId(),
-                order.getDescription()
-        );
-        return orderRepository.save(newOrder);
+        return orderRepository.save(order);
     }
 
     public List<OrderEntity> getAllOrders() {
@@ -39,21 +35,25 @@ public class OrderService {
         return orders;
     }
 
+
     public void deleteOrderById(Long id) {
         var order = findOrderByIdOrThrow(id);
         businessValidator.validateCanDelete(order);
         orderRepository.deleteById(id);
     }
 
+
     public OrderEntity updateOrder(OrderEntity order, Long id) {
         validate(order);
         var existingOrder = findOrderByIdOrThrow(id);
-        existingOrder.setStatus(order.getStatus());
-        existingOrder.setDescription(order.getDescription());
-        existingOrder.setUpdatedAt(LocalDateTime.now());
+
+
+        existingOrder.setPaymentStatus(order.getPaymentStatus());
+        existingOrder.setDeliveryStatus(order.getDeliveryStatus());
 
         return orderRepository.save(existingOrder);
     }
+
 
     public OrderEntity findOrderByIdOrThrow(Long id) {
         return orderRepository.findById(id)

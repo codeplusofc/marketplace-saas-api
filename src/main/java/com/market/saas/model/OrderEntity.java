@@ -1,35 +1,45 @@
 package com.market.saas.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "orders")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class OrderEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long userId;
-    private String status;
+    private Long commerceId;
+    private Double totalPrice;
+
+
+    private String paymentStatus;
+    private String deliveryStatus;
+
     private String description;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItemEntity> items;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public OrderEntity(Long userId, String description) {
-        this.userId = userId;
-        this.description = description;
-        this.status = "PENDING";
+    @PrePersist
+    protected void onCreate() {
         this.createdAt = LocalDateTime.now();
+
+        this.paymentStatus = "PENDING";
+        this.deliveryStatus = "PREPARING";
     }
 
-    public OrderEntity() {
-
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
+
 }

@@ -1,30 +1,34 @@
 package com.market.saas.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
-@Getter
-@Setter
 @Entity
+@Table(name = "products")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class ProductEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long orderId;
-    private String productName;
-    private double productPrice;
-    private int quantity;
-    private double subtotal;
+    private Long commerceId;
 
-    public ProductEntity(Long id, Long orderId, String productName, double productPrice, int quantity, double subtotal) {
-        this.id = id;
-        this.orderId = orderId;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.quantity = quantity;
-        this.subtotal = subtotal;
+
+    private String productName;
+    private Double productPrice;
+    private Integer quantity; // ou stock, se preferir mudar no validator depois
+
+    private String description;
+
+    @ElementCollection
+    private List<String> images;
+
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
     }
 }
