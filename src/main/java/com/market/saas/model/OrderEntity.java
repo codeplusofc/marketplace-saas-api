@@ -7,7 +7,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,11 +19,8 @@ public class OrderEntity {
     private Long userId;
     private Long commerceId;
     private Double totalPrice;
-
-
     private String paymentStatus;
     private String deliveryStatus;
-
     private String description;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)

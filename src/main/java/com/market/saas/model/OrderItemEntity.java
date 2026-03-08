@@ -5,7 +5,10 @@ import lombok.*;
 
 @Entity
 @Table(name = "order_items")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +19,6 @@ public class OrderItemEntity {
     private OrderEntity order;
 
     private Long productId;
-    private Integer quantity;
-    private Double unitPrice;
+    private int quantity;
+    private double unitPrice;
 }
