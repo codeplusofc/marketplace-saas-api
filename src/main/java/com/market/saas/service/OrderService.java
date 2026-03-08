@@ -35,7 +35,6 @@ public class OrderService {
         return orders;
     }
 
-
     public void deleteOrderById(Long id) {
         var order = findOrderByIdOrThrow(id);
         businessValidator.validateCanDelete(order);

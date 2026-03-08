@@ -14,11 +14,9 @@ public class ProductEntity {
     private Long id;
 
     private Long commerceId;
-
-
     private String productName;
     private Double productPrice;
-    private Integer quantity; // ou stock, se preferir mudar no validator depois
+    private int quantity; // ou stock, se preferir mudar no validator depois
 
     private String description;
 
