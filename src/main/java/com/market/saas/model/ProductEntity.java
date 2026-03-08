@@ -1,46 +1,34 @@
 package com.market.saas.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
-@Getter
-@Setter
 @Entity
+@Table(name = "products")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class ProductEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long orderId;
+    private Long commerceId;
 
-    @NotBlank(message = "O nome do produto é obrigatório")
+
     private String productName;
+    private Double productPrice;
+    private Integer quantity; // ou stock, se preferir mudar no validator depois
 
-    @NotNull(message = "O preço do produto é obrigatório")
-    @Positive(message = "O preço deve ser maior que zero")
-    private double productPrice;
+    private String description;
 
-    @Min(value = 1, message = "A quantidade mínima deve ser 1")
-    private int quantity;
+    @ElementCollection
+    private List<String> images;
 
-    private double subtotal;
+    private LocalDateTime createdAt;
 
-
-    public ProductEntity() {
-    }
-
-    public ProductEntity(Long id, Long orderId, String productName, double productPrice, int quantity, double subtotal) {
-        this.id = id;
-        this.orderId = orderId;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.quantity = quantity;
-        this.subtotal = subtotal;
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
     }
 }

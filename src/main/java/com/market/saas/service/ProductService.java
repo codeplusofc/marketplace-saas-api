@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.market.saas.validator.ProductValidator.validateProductFields;
+
 @Service
 public class ProductService {
 
@@ -15,6 +17,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public ProductEntity createProduct(ProductEntity product) {
+        validateProductFields(product);
         return productRepository.save(product);
     }
 
@@ -26,6 +29,9 @@ public class ProductService {
     }
 
     public ProductEntity updateProduct(Long id, ProductEntity product) {
+
+        validateProductFields(product);
+
         var existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Produto não encontrado"));
 
@@ -39,10 +45,9 @@ public class ProductService {
     public List<ProductEntity> getAllProducts() {
         var products = productRepository.findAll();
 
-        if (products.isEmpty()){
+        if (products.isEmpty()) {
             throw new NotFoundException("Nenhum produto encontrado");
         }
-
         return products;
     }
 }
